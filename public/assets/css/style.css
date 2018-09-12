@@ -11,10 +11,10 @@ body { background-color: #F2F6D0 }
         
         height: auto;
       }
-      /* #notes {
+      #notes {
         
         width: 30%;
-      } */
+      }
       textarea, input {
         display: block;
         width: 100%;

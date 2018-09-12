@@ -10,7 +10,7 @@ $(function () {
 
       for (let i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/news/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
+        $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
         // $("#articles").append("<p>Add Comments</p>");
         // An input to enter a new title
         // $("#articles").append("<input id='titleinput' name='title' >");
@@ -106,7 +106,7 @@ $(function () {
 
       for (let i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/news/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
+        $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
 
         $("#articles").append("<button data-id='" + data[i]._id + "' id='addnote'>Add Note</button><button data-id='" + data[i]._id + "' id='viewnote'>View Note</button><button data-id='" + data[i]._id + "' id='deletearticle'>Delete Article</button><br>");
 
