@@ -98,6 +98,114 @@ $(document).on("click", "#savearticle", function() {
   $("#bodyinput").val("");
 });
 
+function savedArticles (data) {
+  $.getJSON("/articles", function(data) {
+    // For each one
+    $("#notes").empty();
+    $("#articles").empty();
+    
+    for (let i = 0; i < data.length; i++) {
+      // Display the apropos information on the page
+      $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/news/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
+      
+          $("#articles").append("<button data-id='" + data[i]._id + "' id='addnote'>Add Note</button><button data-id='" + data[i]._id + "' id='viewnote'>View Note</button><br>");
+          
+          
+    }
+  });
+}
+
+$(document).on("click", "#viewArticles", function() {
+  console.log("view articles clicked");
+  savedArticles();
+
+});
+
+$(document).on("click", "#addnote", function() {
+  console.log("add note clicked");
+  const id = $(this).attr("data-id");
+  addNote(id);
+
+});
+$(document).on("click", "#viewnote", function() {
+  console.log("view note clicked");
+  //view note
+
+});
+
+$(document).on("click", "#savenote", function() {
+  console.log("save note clicked");
+  const id = $(this).attr("data-id");
+  saveNote(id);
+
+});
+
+function addNote (id) {
+     
+    $("#notes").empty();
+    $("#articles").empty();
+
+    $("#notes").append("<input id='titleinput' name='title' >");
+    // A textarea to add a new note body
+    $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+    // A button to submit a new note, with the id of the article saved to it
+    $("#notes").append("<button data-id='" + id + "' id='savenote'>Save Note</button><br>");
+    $("#notes").append("<button id='viewnote'>View Comments</button><br>");
+
+    
+    // console.log(id);
+    // const title = $("#titleinput").val().trim();
+    // const body = $("#bodyinput").val().trim();
+    
+    // $.ajax({
+    //   method: "POST",
+    //   url: "/articles" + id,
+    //   data: {
+        
+    //     title: title,
+    //     body: body,
+        
+    //   }
+    // })
+    // .then(function(data) {
+
+    //   console.log(JSON.stringify(data) + "saved notes");
+      
+    // });
+}
+
+function saveNote(id) {
+
+ 
+  console.log(id);
+    const title = $("#titleinput").val().trim();
+    const body = $("#bodyinput").val().trim();
+    
+    $.ajax({
+      method: "POST",
+      url: "/articles/" + id,
+      data: {
+        
+        title: title,
+        body: body,
+        
+      }
+    })
+    .then(function(data) {
+
+      console.log(JSON.stringify(data) + "saved notes");
+      
+    });
+    $("#notes").empty();
+    $("#articles").empty();
+}
+
+
+
+
+
+
+
 
 
 });// end doc ready

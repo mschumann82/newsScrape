@@ -49,9 +49,9 @@ app.get("/", function(req, res) {
     res.render("index");
   });
 
-app.get("/comment", function(req, res) {
+app.get("/saved", function(req, res) {
   
-    res.render("comment");
+    res.render("saved");
   });
 
 
