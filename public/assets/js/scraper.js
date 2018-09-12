@@ -108,7 +108,7 @@ $(function () {
         // Display the apropos information on the page
         $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/news/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
 
-        $("#articles").append("<button data-id='" + data[i]._id + "' id='addnote'>Add Note</button><button data-id='" + data[i]._id + "' id='viewnote'>View Note</button><br>");
+        $("#articles").append("<button data-id='" + data[i]._id + "' id='addnote'>Add Note</button><button data-id='" + data[i]._id + "' id='viewnote'>View Note</button><button data-id='" + data[i]._id + "' id='deletearticle'>Delete Article</button><br>");
 
 
       }
@@ -138,6 +138,13 @@ $(function () {
     console.log("save note clicked");
     const id = $(this).attr("data-id");
     saveNote(id);
+
+  });
+
+  $(document).on("click", "#deletearticle", function () {
+    console.log("delete article clicked");
+    const id = $(this).attr("data-id");
+    deleteArticle(id);
 
   });
 
@@ -202,6 +209,30 @@ $(function () {
       // });
     });
 
+  }
+
+  function deleteArticle(id) {
+
+
+    console.log(id);
+    
+
+    $.ajax({
+      method: "DELETE",
+      url: "/articles/" + id,
+      // data: {
+
+      //   _id: id,
+        
+      // }
+      
+    })
+      .then(function (data) {
+
+        console.log(JSON.stringify(data) + "deleted article");
+        savedArticles(data);
+      });
+    
   }
 
 

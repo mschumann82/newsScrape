@@ -218,3 +218,16 @@ app.get("/notes/:id", function(req, res) {
       res.json(err);
     });
 });
+
+app.delete("/articles/:id" , function(req, res) {
+  
+  db.Article.remove({ _id: req.params.id })
+    .then(function(dbArticle) {
+      
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
