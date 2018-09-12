@@ -204,3 +204,17 @@ app.post("/articles", function(req, res) {
         });
   console.log("res");
 });
+
+app.get("/notes/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Note.findOne({ _id: req.params.id })
+    
+    .then(function(dbNote) {
+      
+      res.json(dbNote);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
