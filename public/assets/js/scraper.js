@@ -3,7 +3,7 @@
 $(function () {
 
   function handlearticles (data) {
-  $.getJSON("/articles", function(data) {
+  $.getJSON("/scrape", function(data) {
     // For each one
     $("#notes").empty();
     $("#articles").empty();

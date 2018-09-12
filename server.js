@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHL";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/test";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
@@ -54,10 +54,11 @@ app.get("/comment", function(req, res) {
     res.render("comment");
   });
 
-var results = [];
+
 
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
+  const results = [];
   // First, we grab the body of the html with request
   request("https://www.yahoo.com/news/", function(error, response, html) {
 
@@ -66,8 +67,8 @@ app.get("/scrape", function(req, res) {
 
   // Empty array to save our scraped data
   
-  results = [];
-  const result = {};
+ 
+  
     
   $("li.js-stream-content").each(function(i, element) {
       // Save an empty result object
@@ -75,39 +76,42 @@ app.get("/scrape", function(req, res) {
 			const title = $(element).find("a").text().trim();
 			const post = $(element).find("p").text().trim();
       // Add the text and href of every link, and save them as properties of the result object
-
+      const result = {};
       
       result.title = title;
         
-        
       result.link = link;
-      
       
 			result.post = post;
 		
       results.push(result);
       
-      console.log(result);
+      
 
       // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          // console.log(dbArticle + "db article");
-          res.json(dbArticle);
-        })
-        .catch(function(err) {
-          // If an error occurred, send it to the client
-          return res.json(err);
+      // db.Article.create(result)
+      //   .then(function(dbArticle) {
+      //     // View the added result in the console
+      //     // console.log(dbArticle + "db article");
+      //     res.json(dbArticle);
+      //   })
+      //   .catch(function(err) {
+      //     // If an error occurred, send it to the client
+      //     return res.json(err);
           
-        });
+      //   });
+        
     });
+    
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     
+    console.log(results);
     res.json(results);
     
   });
+  console.log("done");
+  
 });
 
 app.get("/articles", function(req, res) {
