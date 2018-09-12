@@ -86,20 +86,6 @@ app.get("/scrape", function(req, res) {
 		
       results.push(result);
       
-      
-
-      // Create a new Article using the `result` object built from scraping
-      // db.Article.create(result)
-      //   .then(function(dbArticle) {
-      //     // View the added result in the console
-      //     // console.log(dbArticle + "db article");
-      //     res.json(dbArticle);
-      //   })
-      //   .catch(function(err) {
-      //     // If an error occurred, send it to the client
-      //     return res.json(err);
-          
-      //   });
         
     });
     
@@ -225,6 +211,20 @@ app.delete("/articles/:id" , function(req, res) {
     .then(function(dbArticle) {
       
       res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+app.post("/notes/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Note.update({ _id: req.params.id }, {$set: {"title": req.body.title, "body": req.body.body}})
+    
+    .then(function(dbNote) {
+      
+      res.json(dbNote);
     })
     .catch(function(err) {
       // If an error occurred, send it to the client

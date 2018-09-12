@@ -8,13 +8,13 @@ body { background-color: #F2F6D0 }
       #articles {
         display: inline-block;
         overflow: auto;
-        width: 60%;
-        height: 700px;
+        
+        height: auto;
       }
-      #notes {
-        float: right;
+      /* #notes {
+        
         width: 30%;
-      }
+      } */
       textarea, input {
         display: block;
         width: 100%;

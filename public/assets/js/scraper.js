@@ -141,10 +141,24 @@ $(function () {
 
   });
 
+  $(document).on("click", "#updatenote", function () {
+    console.log("update note clicked");
+    const id = $(this).attr("data-id");
+    updateNote(id);
+
+  });
+
   $(document).on("click", "#deletearticle", function () {
     console.log("delete article clicked");
     const id = $(this).attr("data-id");
     deleteArticle(id);
+
+  });
+
+  $(document).on("click", "#notesave", function () {
+    console.log("note save clicked");
+    const id = $(this).attr("data-id");
+    noteUpdated(id);
 
   });
 
@@ -159,7 +173,7 @@ $(function () {
     // A textarea to add a new note body
     $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
     // A button to submit a new note, with the id of the article saved to it
-    $("#notes").append("<button data-id='" + id + "' id='savenote'>Update Note Note</button><br>");
+    $("#notes").append("<button data-id='" + id + "' id='savenote'>Save Note </button><br>");
     // $("#notes").append("<button id='viewnote'>View Comments</button><br>");
 
 
@@ -184,11 +198,12 @@ $(function () {
     })
       .then(function (data) {
 
-        console.log(JSON.stringify(data) + "saved notes");
+        console.log("saved notes");
 
       });
     $("#notes").empty();
     $("#articles").empty();
+    viewNote(id);
   }
 
   function viewNote(id) {
@@ -204,7 +219,7 @@ $(function () {
 
         $("#notes").append("<p id='notetitle' name='title' >" + note[0].title + "</p>");
         $("#notes").append("<p id='notebody' name='body' >" + note[0].body + "</p>");
-        $("#notes").append("<button data-id='" + note + "' id='updatenote'>Update Note</button><br>");
+        $("#notes").append("<button data-id='" + note[0]._id + "' id='updatenote'>Update Note</button><br>");
         
       // });
     });
@@ -234,6 +249,48 @@ $(function () {
       });
     
   }
+
+  function updateNote(id) {
+    console.log(id);
+    $("#notes").empty();
+    $("#articles").empty();
+
+
+
+    $("#notes").append("<input id='titleinput' name='title' >");
+    // A textarea to add a new note body
+    $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+    // A button to submit a new note, with the id of the article saved to it
+    $("#notes").append("<button data-id='" + id + "' id='notesave'>Update Note </button><br>");
+    
+    
+  }
+
+  function noteUpdated (id) {
+    const title = $("#titleinput").val().trim();
+    const body = $("#bodyinput").val().trim();
+    console.log(title + body);
+    
+
+    $.ajax({
+      method: "POST",
+      url: "/notes/" + id,
+      data: {
+
+        title: title,
+        body: body,
+
+      }
+      
+    })
+      .then(function (data) {
+
+        console.log("updated note");
+        savedArticles();
+      });
+  }
+
+  
 
 
 
