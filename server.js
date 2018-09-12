@@ -106,11 +106,11 @@ app.get("/scrape", function(req, res) {
 
     // If we were able to successfully scrape and save an Article, send a message to the client
     
-    console.log(results);
+    // console.log(results);
     res.json(results);
     
   });
-  console.log("done");
+  console.log("scrape");
   
 });
 
@@ -174,4 +174,33 @@ app.get("/notes", function(req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+app.post("/articles", function(req, res) {
+      const link = req.body.link;
+      const title = req.body.title;
+      const post = req.body.post;
+      console.log(title);
+      console.log(link);
+      console.log(post);
+      const result = {};
+      
+      result.title = title;
+        
+      result.link = link;
+      
+			result.post = post;
+
+  db.Article.create(result)
+        .then(function(dbArticle) {
+          // View the added result in the console
+          // console.log(dbArticle + "db article");
+          res.json(dbArticle);
+        })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          return res.json(err);
+          
+        });
+  console.log("res");
 });

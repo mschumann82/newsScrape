@@ -10,15 +10,15 @@ $(function () {
     
     for (let i = 0; i < data.length; i++) {
       // Display the apropos information on the page
-      $("#articles").append("<a href='https://www.yahoo.com/news/><p data-id='" + data[i]._id + "'>" + data[i].title + "<br /></p></a>" + "<p>" + data[i].post + "</p>")
-      $("#articles").append("<p>Add Comments</p>");
+      $("#articles").append("<a id = 'linkinput' href='https://www.yahoo.com/news/" + data[i].link + "'><p id='titleinput' data-id='" + data[i].title + "'>" + data[i].title + "<br /></p></a>" + "<p id='bodyinput'>" + data[i].post + "</p>")
+      // $("#articles").append("<p>Add Comments</p>");
           // An input to enter a new title
-          $("#articles").append("<input id='titleinput' name='title' >");
-          // A textarea to add a new note body
-          $("#articles").append("<textarea id='bodyinput' name='body'></textarea>");
+          // $("#articles").append("<input id='titleinput' name='title' >");
+          // // A textarea to add a new note body
+          // $("#articles").append("<textarea id='bodyinput' name='body'></textarea>");
           // A button to submit a new note, with the id of the article saved to it
-          $("#articles").append("<button data-id='" + data[i]._id + "' id='savenote'>Save Note</button><br>");
-          $("#articles").append("<a href='/comments<button data-id='" + data[i].note + "' id='viewnote'>View Comments</button><br>");
+          $("#articles").append("<button data-title='" + data[i].title + "'  data-link='" + data[i].link + "' data-post='" + data[i].post + "' id='savearticle'>Save Article</button><br>");
+          // $("#articles").append("<a href='/comments<button data-id='" + data[i].note + "' id='viewnote'>View Comments</button><br>");
     
           // If there's a note in the article
           // if (data[i].note.length > 1) {
@@ -60,24 +60,33 @@ $(function () {
   });
 
   // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$(document).on("click", "#savearticle", function() {
+  console.log("saved articles clicked");
   // Grab the id associated with the article from the submit button
-  const thisId = $(this).attr("data-id");
+  // const thisId = $(this).attr("data-id");
+    const title = $(this).attr("data-title") || "Title not saved.";
+    const post = $(this).attr("data-post");
+    const link = $(this).attr("data-link");
+    console.log(title);
+    console.log(post);
+    console.log(link);
 
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
     method: "POST",
-    url: "/articles/" + thisId,
+    url: "/articles",
     data: {
-      // Value taken from title input
-      title: $("#titleinput").val(),
-      // Value taken from note textarea
-      body: $("#bodyinput").val()
+      
+      title: title,
+      post: post,
+      link: link
     }
   })
     // With that done
     .then(function(data) {
-      handlearticles(data);
+
+      console.log(JSON.stringify(data) + "saved articles");
+      // handlearticles(data);
       // Log the response
       // console.log(data);
       // // Empty the notes section
