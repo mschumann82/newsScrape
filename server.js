@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/test";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://<dbuser>:<dbpassword>@ds149742.mlab.com:49742/heroku_l2sm6pgj" ||"mongodb://localhost/test";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
