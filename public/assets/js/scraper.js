@@ -2,7 +2,7 @@
 
 $(function () {
 
-  function handlearticles(data) {
+  function handlearticles() {
     $.getJSON("/scrape", function (data) {
       // For each one
       $("#notes").empty();
