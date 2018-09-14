@@ -1,13 +1,13 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cheerio = require("cheerio");
-const request = require("request");
+var express = require("express");
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+var cheerio = require("cheerio");
+var request = require("request");
 const db = require("./models");
 
 const PORT = process.env.PORT || 8080;
 
-const app = express();
+var app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
