@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-const MONGODB_URI = "mongodb://<dbuser>:<dbpassword>@ds149742.mlab.com:49742/heroku_l2sm6pgj" ||process.env.MONGODB_URI || "mongodb://localhost/mangoDB";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mangoDB";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
@@ -38,11 +38,6 @@ app.set("view engine", "handlebars");
 
 
 // Start our server so that it can begin listening to client requests.
-app.listen(PORT, function() {
-  // Log (server-side) when our server has started
-  console.log("Server listening on: http://localhost:" + PORT);
-  
-});
 
 app.get("/", function(req, res) {
   
@@ -230,4 +225,10 @@ app.post("/notes/:id", function(req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+app.listen(PORT, function() {
+  // Log (server-side) when our server has started
+  console.log("Server listening on: http://localhost:" + PORT);
+  
 });
