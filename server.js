@@ -22,7 +22,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mangoDB";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 
